@@ -8,8 +8,8 @@ Welcome to django-tutorial's documentation!
 
 Contents:
 
-.. toctree::
-   :maxdepth: 2
+	.. toctree::
+	   :maxdepth: 2
 
 
 
@@ -20,3 +20,9 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+Django Installation
+===================
+
+The installation is really simple.
+
+pip install django
