@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Add your read content{% endblock %}
+
+{% block content %}
+
+{% if success %}
+<div class="alert alert-success" role="alert">You have successfully submitted the form</div>
+{% endif %}
+<form action="/read/entry/" method="post">
+    <div class="form-group">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+            {{ form.title.errors }}
+            <label for="{{ form.title.id_for_label }}">Title:</label>
+            <input id="id_title" maxlength="200" name="title" type="text" required="" class="form-control">
+            <!-- {{ form.title }} -->
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="fieldWrapper">
+            {{ form.url.errors }}
+            <label for="{{ form.url.id_for_label }}">Url:</label>
+            <input id="id_url" name="url" type="url" required="" class="form-control">
+            <!--{{ form.url }}-->
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="fieldWrapper">
+            {{ form.data.errors }}
+            <label for="{{ form.data.id_for_label }}">Content</label>
+            <textarea id="id_data" maxlength="4000" name="data"  required="" class="form-control"></textarea>
+            <!--{{ form.data }}-->
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default" value="Submit">Submit</button>
+
+</form>
+{% endblock %}
