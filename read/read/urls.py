@@ -16,16 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-# from read.views import helloWorld
-# from read.views import timePlus
+from read.views import helloWorld
+from reading.views import heatmap_data
 # from read.views import time
 from reading.views import read_list
 from reading.views import read_form
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^hello/',helloWorld),
-    # url(r'^time/',time),
+    url(r'^hello/',helloWorld),
+    url(r'^heatmap_data/', heatmap_data),
     # url(r'^time/plus/(\d{1,2})/',timePlus),
     url(r'^read/list/',read_list),
     url(r'^read/entry/',read_form)

@@ -1,17 +1,36 @@
 from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render
-# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from datetime import datetime, timedelta
+import time
 # Create your views here.
 from .forms import ReadingForm
 from .models import Read
 
+
 def read_list(request):
-    t = get_template("read_list.html")
-    html = t.render()
-    return HttpResponse(html)
+    blog_reads = Read.objects.all()
+
+    paginator = Paginator(blog_reads, 25)
+
+    page = request.GET.get('page')
+    try:
+        blogs = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        blogs = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        blogs = paginator.page(paginator.num_pages)
+
+    return render(request, 'read_list.html', {'blogs_read': blogs})
+
+
+    # t = get_template("read_list.html")
+    # html = t.render()
+    # return HttpResponse(html)
 
 
 def read_form(request):
@@ -28,10 +47,19 @@ def read_form(request):
             blog_read.created_date = datetime.now()
             blog_read.save()
 
-            return render(request, 'reading_form.html', {'form': form, 'success':True})
+            return render(request, 'reading_form.html', {'form': form, 'success': True})
 
-        # if a GET (or any other method) we'll create a blank form
+            # if a GET (or any other method) we'll create a blank form
     else:
         form = ReadingForm()
 
     return render(request, 'reading_form.html', {'form': form})
+
+
+def heatmap_data(request):
+    k = {'dhruv': 'dhruv'}
+    blog_reads = Read.objects.values_list('created_date')
+    l = {}
+    for idx,a in enumerate(blog_reads):
+        l[time.mktime(a[0].timetuple())+idx] = 1
+    return JsonResponse(l)

@@ -3,19 +3,42 @@
 {% block title %}Past Reads{% endblock %}
 
 {% block content %}
-    <ul class="list-group">
-	  <li class="list-group-item">
-	  <div class="row">
-		  <div class="col-md-8">title</div>
-		  <div class="col-md-4">date</div>
-		</div>
-		<div class="row">
-		  <div class="col-md-12">url</div>
-		</div>
-		<div class="row">
-		  <div class="col-md-12">content</div>
-		</div>
-	  </li>
+<ul class="list-group">
+    {% for blog_read in blogs_read %}
+    <li class="list-group-item">
+        <div class="list-group-item-heading">
+            <span class="badge pull-right">{{blog_read.created_date}}</span>
+            <h4 class="">{{blog_read.title}}</h4>
+        </div>
+        <div class="list-group-item-text">
+            <p>{{blog_read.url}}</p>
+            <p>{{blog_read.data}}</p>
+        </div>
 
-	</ul>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if blogs_read.has_other_pages %}
+<ul class="pagination">
+    {% if blogs_read.has_previous %}
+    <li><a href="?page={{ blogs_read.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in blogs_read.paginator.page_range %}
+    {% if blogs_read.number == i %}
+    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if blogs_read.has_next %}
+    <li><a href="?page={{ blogs_read.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+</ul>
+{% endif %}
+
 {% endblock %}

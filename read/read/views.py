@@ -2,12 +2,16 @@ from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from datetime import datetime, timedelta
 
-
 def helloWorld(request):
-    return HttpResponse("hello world")
+    t = get_template('dashboard.html')
+    html = t.render()
+
+    return HttpResponse(html)
+    # return HttpResponse("hello world")
+
 
 
 def timePlus(request, offset):

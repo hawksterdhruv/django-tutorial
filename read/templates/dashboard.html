@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+{% endblock %}
+
+
+{% block content %}
+<div id="cal-heatmap"></div>
+<script type="text/javascript">
+
+	var cal = new CalHeatMap();
+    cal.init({
+	itemSelector: "#cal-heatmap",
+	domain: "month",
+	range: 10,
+	cellSize: 8,
+	displayLegend: false,
+	domainDynamicDimension: false,
+	nextSelector: "#domainDynamicDimension-next",
+	previousSelector: "#domainDynamicDimension-previous",
+	itemNamespace: "domainDynamicDimension",
+	data: "http://localhost:8000/heatmap_data/"
+});
+
+</script>
+
+{% endblock %}
