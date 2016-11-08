@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import time
 # Create your views here.
 from .forms import ReadingForm
-from .models import Read
+from .models import Read, Tags
 
 
 def read_list(request):
@@ -43,12 +43,22 @@ def read_form(request):
             # ...
             # redirect to a new URL:
             blog_read = form.save(commit=False)
-            # post.author = request.user
             blog_read.created_date = datetime.now()
             blog_read.save()
 
-            return render(request, 'reading_form.html', {'form': form, 'success': True})
+            k = set()
+            for a in form.data['tags'].split(','):
+                k.add(a.strip())
+            for a in k:
+                t = Tags()
+                t.tag = a
+                t.save()
+                blog_read.tags.add(t)
+            # blog_read.save()
 
+            return render(request, 'reading_form.html', {'form': form, 'success': True})
+        else:
+            return render(request, 'reading_form.html', {'form': form, 'success': False})
             # if a GET (or any other method) we'll create a blank form
     else:
         form = ReadingForm()
@@ -63,3 +73,7 @@ def heatmap_data(request):
     for idx,a in enumerate(blog_reads):
         l[time.mktime(a[0].timetuple())+idx] = 1
     return JsonResponse(l)
+
+def write_form(request):
+
+    return render(request, 'write_form.html')

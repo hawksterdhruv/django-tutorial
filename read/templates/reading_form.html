@@ -2,10 +2,28 @@
 
 {% block title %}Add your read content{% endblock %}
 
+{% block head %}
+
+{% load static %}
+
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+<link rel="stylesheet" href="{% static "/css/bootstrap-tagsinput.css" %}">
+
+<script src="{% static "/js/bootstrap-tagsinput.js" %}"></script>
+
+{% endblock %}
 {% block content %}
+
+
+
+<img src="{% static "/reading/example.jpg" %}" alt="My image">
+
 
 {% if success %}
 <div class="alert alert-success" role="alert">You have successfully submitted the form</div>
+{% elif success == False %}
+<div class="alert alert-danger" role="alert">Oops! Something went wrong</div>
 {% endif %}
 <form action="/read/entry/" method="post">
     <div class="form-group">
@@ -28,13 +46,50 @@
     </div>
     <div class="form-group">
         <div class="fieldWrapper">
+            {{ form.tags.errors }}
+            <label for="{{ form.tags.id_for_label }}">Tags:</label>
+            <input id="id_tags" name="tags" type="text" required="" class="form-control" data-role="tagsinput">
+            <!--{{ form.url }}-->
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="fieldWrapper">
             {{ form.data.errors }}
             <label for="{{ form.data.id_for_label }}">Content</label>
-            <textarea id="id_data" maxlength="4000" name="data"  required="" class="form-control"></textarea>
+            <textarea id="id_data" maxlength="4000" name="data"
+                      required=""
+                      class="form-control"
+                      cols="85" rows="10"></textarea>
+            <!--<textarea id="id_data" name="data" cols="85" rows="10" class="form-control">-->
+            <!--</textarea>-->
             <!--{{ form.data }}-->
         </div>
     </div>
-    <button type="submit" class="btn btn-default" value="Submit">Submit</button>
+    <button type="submit" class="btn btn-default" value="Submit" id="submit_btn">Submit</button>
 
 </form>
+
+<script>
+    tinymce.init({
+        selector: '#id_data',
+        height: 230,
+        plugins: 'link image code',
+        menubar:false,
+
+        toolbar:false,
+        relative_urls: false,
+       themes: "modern",
+       statusbar: false,
+       content_style :"p {font-size:14px; font-family: Helvetica,Arial,sans-serif;}"
+        });
+
+<!--document.getElementById("submit_btn").addEventListener("click", tinyMCE.get('id_data').getContent());-->
+$('#submit_btn').click('submit', function () {
+        tinyMCE.triggerSave(true, true);
+        });
+
+        $('#id_tags').tagsinput({
+  confirmKeys: [44]
+});
+</script>
 {% endblock %}

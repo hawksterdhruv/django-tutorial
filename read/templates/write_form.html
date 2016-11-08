@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        blockquote {
+          padding-left: 4px;
+          border-left: 2px solid gray;
+        }
+
+        a[href] {
+          text-decoration: underline;
+        }
+    </style>
+
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+</head>
+<body>
+<!--<textarea>Easy (and free!) You should check out our premium features.</textarea>-->
+<textarea id="absurls" name="absurls" cols="85" rows="10">
+</textarea>
+<script>
+    tinymce.init({
+  selector: '#absurls',
+  height: 230,
+  plugins: 'link image code',
+  menubar:false,
+
+  toolbar:false,
+  relative_urls: false,
+  content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+});
+
+
+</script>
+</body>
+</html>

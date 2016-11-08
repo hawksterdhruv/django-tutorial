@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -27,8 +26,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
+
+
+# STATIC_ROOT = ''
+# STATIC_URL = '/static/'
+# STATICFILES_FINDERS = ('django.contrib.staticfiles.finders.FileSystemFinder',
+#                        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#                        # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#                        )
+STATIC_URL = '/static/'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -70,7 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'read.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -87,11 +94,10 @@ DATABASES = {
         'NAME': 'blogs',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -111,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -125,8 +130,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATIC_URL = '/static/'
+STATIC_DIRS = [os.path.join(BASE_DIR, "static/js"), os.path.join(BASE_DIR, "static/css"),]
