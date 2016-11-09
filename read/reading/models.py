@@ -13,7 +13,7 @@ class Write(models.Model):
     title = models.CharField(max_length=200)
     # url = models.URLField()
     data = models.CharField(max_length=4000)
-    created_date = models.DateField()
+    created_date = models.DateTimeField()
     tags = models.ManyToManyField(Tags)
 
 
@@ -21,7 +21,7 @@ class Read(models.Model):
     title = models.CharField(max_length=200)
     url = models.URLField()
     data = models.CharField(max_length=4000)
-    created_date = models.DateField()
+    created_date = models.DateTimeField()
     tags = models.ManyToManyField(Tags)
     write = models.ForeignKey(Write, on_delete=models.SET_NULL, blank=True,
                               null=True, )

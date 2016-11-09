@@ -7,7 +7,7 @@
     {% for blog_read in blogs_read %}
     <li class="list-group-item">
         <div class="list-group-item-heading">
-            <span class="badge pull-right">{{blog_read.created_date}}</span>
+            <span class="badge pull-right">{{ blog_read.created_date|date:"D d M y" }} {{ blog_read.created_date|time:"H:i" }}</span>
             <h4 class="">{{blog_read.title}}</h4>
         </div>
         <div class="list-group-item-text">

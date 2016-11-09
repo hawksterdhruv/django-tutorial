@@ -11,9 +11,9 @@ from .models import Read, Tags
 
 
 def read_list(request):
-    blog_reads = Read.objects.all()
+    blog_reads = Read.objects.all().order_by('-created_date')
 
-    paginator = Paginator(blog_reads, 25)
+    paginator = Paginator(blog_reads, 10)
 
     page = request.GET.get('page')
     try:
@@ -50,9 +50,11 @@ def read_form(request):
             for a in form.data['tags'].split(','):
                 k.add(a.strip())
             for a in k:
-                t = Tags()
-                t.tag = a
-                t.save()
+                t, created = Tags.objects.get_or_create(tag=a)
+                if not created:
+                    t.tag = a
+                    t.save()
+
                 blog_read.tags.add(t)
             # blog_read.save()
 
@@ -70,10 +72,10 @@ def heatmap_data(request):
     k = {'dhruv': 'dhruv'}
     blog_reads = Read.objects.values_list('created_date')
     l = {}
-    for idx,a in enumerate(blog_reads):
-        l[time.mktime(a[0].timetuple())+idx] = 1
+    for idx, a in enumerate(blog_reads):
+        l[time.mktime(a[0].timetuple()) + idx] = 1
     return JsonResponse(l)
 
-def write_form(request):
 
+def write_form(request):
     return render(request, 'write_form.html')
