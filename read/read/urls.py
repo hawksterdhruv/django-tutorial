@@ -24,14 +24,16 @@ from reading.views import heatmap_data
 from reading.views import write_form
 from reading.views import read_list
 from reading.views import read_form
+from reading.views import read_detail
 
 urlpatterns = [
-                  url(r'^admin/', admin.site.urls),
-                  url(r'^hello/', helloWorld),
-                  url(r'^heatmap_data/', heatmap_data),
-                  # url(r'^time/plus/(\d{1,2})/',timePlus),
-                  url(r'^read/list/', read_list),
-                  url(r'^read/entry/', read_form),
-                  url(r'^write/', write_form),
-                  url(r'^static/(?P<path>.*)$', views.serve),
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^admin/', admin.site.urls),
+    url(r'^hello/', helloWorld),
+    url(r'^heatmap_data/', heatmap_data),
+    # url(r'^time/plus/(\d{1,2})/',timePlus),
+    url(r'^read/list/', read_list),
+    url(r'^read/entry/', read_form),
+    url(r'^write/', write_form),
+    # url(r'^static/(?P<path>.*)$', views.serve),
+    url(r'^read/detail/(?P<id>\d+)$', read_detail, name='detail')
+]  # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

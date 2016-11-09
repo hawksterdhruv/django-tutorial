@@ -68,6 +68,21 @@ def read_form(request):
     return render(request, 'reading_form.html', {'form': form})
 
 
+def read_detail(request, id):
+    r = Read.objects.get(id=id)
+    # print r
+    # TODO : figure out how to use dictionary here
+    k = dict()
+    k['content'] = r.data
+    k['title'] = r.title
+    k['url'] = r.url
+    # print k['url']
+    # return JsonResponse(data)
+    return render(request, 'read_detail.html', k)
+
+
+# TODO: Fix heatmap (i think it is fixed)
+
 def heatmap_data(request):
     k = {'dhruv': 'dhruv'}
     blog_reads = Read.objects.values_list('created_date')
