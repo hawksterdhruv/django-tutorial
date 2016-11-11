@@ -88,14 +88,25 @@ WSGI_APPLICATION = 'read.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'blogs',
+#         'USER': 'root',
+#         'PASSWORD': 'root',
+#         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blogs',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'read_blog',
+        'USER': 'dhruv',
+        'PASSWORD': 'dhruv',
         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'PORT': '',
     }
 }
 

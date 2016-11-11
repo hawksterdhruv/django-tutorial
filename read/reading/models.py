@@ -19,8 +19,9 @@ class Write(models.Model):
 
 class Read(models.Model):
     title = models.CharField(max_length=200)
-    url = models.URLField()
+    url = models.URLField(blank=True)
     data = models.TextField()
+    snippet = models.TextField(null=True)
     created_date = models.DateTimeField()
     tags = models.ManyToManyField(Tags)
     write = models.ForeignKey(Write, on_delete=models.SET_NULL, blank=True,

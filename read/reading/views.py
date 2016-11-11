@@ -24,7 +24,7 @@ def read_list(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         blogs = paginator.page(paginator.num_pages)
-
+    print type(blogs)
     return render(request, 'read_list.html', {'blogs_read': blogs})
 
 
